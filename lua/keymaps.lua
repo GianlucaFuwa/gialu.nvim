@@ -1,9 +1,9 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 vim.keymap.set('n', '<leader>pv', vim.cmd.Explore)
-vim.keymap.set('n', '<leader>nt', '<C-W>s<bar><C-W>j<bar>:terminal<enter>')
+vim.keymap.set('n', '<leader>nt', '<C-W>v<bar><C-W>l<bar>:terminal<enter>')
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
-vim.keymap.set('n', '<leader>nj', '<C-W>s<bar><C-W>j<bar>:terminal<enter>ijulia -t auto --project --startup-file=yes<enter>')
+vim.keymap.set('n', '<leader>nj', '<C-W>v<bar><C-W>l<bar>:terminal<enter>ijulia -t auto --project --startup-file=yes<enter>')
 vim.keymap.set(
   'n',
   '<leader>nr',
@@ -14,6 +14,17 @@ vim.keymap.set('n', '<leader>s', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><
 vim.keymap.set('n', '<leader>ee', 'ggVG:JuliaREPLSendRegion<cr>')
 --- command to go to directory "C:\Users\AppData\Local\nvim" in explorer
 vim.keymap.set('n', '<leader>cc', ':e C:\\Users\\gianl\\AppData\\Local\\nvim<enter>')
+-- avoid ctrl+alt'ing
+vim.keymap.set('i', 'äh', '{')
+vim.keymap.set('i', 'äl', '}')
+vim.keymap.set('i', 'öh', '[')
+vim.keymap.set('i', 'öl', ']')
+vim.keymap.set('i', 'öö', '\\')
+vim.keymap.set('t', 'äh', '{')
+vim.keymap.set('t', 'äl', '}')
+vim.keymap.set('t', 'öh', '[')
+vim.keymap.set('t', 'öl', ']')
+vim.keymap.set('t', 'öö', '\\')
 
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
@@ -27,7 +38,7 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 
 -- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
 -- or just use <C-\><C-n> to exit terminal mode
-vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+-- vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
 -- TIP: Disable arrow keys in normal mode
 -- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')

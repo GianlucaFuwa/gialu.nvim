@@ -28,7 +28,9 @@ return {
         inverse = true, -- invert background for search, diffs, statuslines and errors
         contrast = 'soft', -- can be "hard", "soft" or empty string
         palette_overrides = {},
-        overrides = {},
+        overrides = {
+          ["@function.macro"] = { fg = "#8ec07c", bold = true },
+        },
         dim_inactive = true,
         transparent_mode = false,
       }

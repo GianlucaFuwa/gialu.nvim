@@ -3,7 +3,7 @@ return {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     opts = {
-      ensure_installed = { 'lua', 'julia', 'zig', 'c' },
+      ensure_installed = { 'lua', 'julia', 'zig', 'c', 'odin' },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
