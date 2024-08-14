@@ -1,9 +1,11 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 vim.keymap.set('n', '<leader>pv', vim.cmd.Explore)
-vim.keymap.set('n', '<leader>nt', '<C-W>v<bar><C-W>l<bar>:terminal<enter>')
+vim.keymap.set('n', '<Esc><Esc>', ':FloatermToggle<enter>')
+vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>:FloatermToggle<enter>')
+vim.keymap.set('n', '<leader>nt', ':FloatermNew --position=bottomright<enter>')
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
-vim.keymap.set('n', '<leader>nj', '<C-W>v<bar><C-W>l<bar>:terminal<enter>ijulia -t auto --project --startup-file=yes<enter>')
+vim.keymap.set('n', '<leader>nj', ':FloatermNew --position=bottomright --name=julia <enter>julia -t auto --project --startup-file=yes<enter>')
 vim.keymap.set(
   'n',
   '<leader>nr',
@@ -13,7 +15,7 @@ vim.keymap.set('n', '<leader>s', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><
 
 vim.keymap.set('n', '<leader>ee', 'ggVG:JuliaREPLSendRegion<cr>')
 --- command to go to directory "C:\Users\AppData\Local\nvim" in explorer
-vim.keymap.set('n', '<leader>cc', ':e C:\\Users\\gianl\\AppData\\Local\\nvim<enter>')
+vim.keymap.set('n', '<leader>cc', ':e /home/gialuf/.config/nvim<enter>')
 -- avoid ctrl+alt'ing
 vim.keymap.set('i', 'äh', '{')
 vim.keymap.set('i', 'äl', '}')
