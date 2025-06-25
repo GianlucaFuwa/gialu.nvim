@@ -27,19 +27,32 @@ require('lazy').setup({
 
   -- modular approach: using `require 'path/name'` will
   -- include a plugin definition from file lua/path/name.lua
+  require 'kickstart/plugins/oil',
+
   require 'kickstart/plugins/colors',
 
   require 'kickstart/plugins/telescope',
 
   require 'kickstart/plugins/lspconfig',
 
+  require 'kickstart/plugins/surround',
+
+  require 'kickstart/plugins/border',
+
+  -- require 'kickstart/plugins/iron',
+
   require 'kickstart/plugins/floaterm',
+
+  -- require 'kickstart/plugins/smuggler', -- Julia REPL
+  require 'kickstart/plugins/neige', -- Julia REPL
 
   require 'kickstart/plugins/cmp',
 
   require 'kickstart/plugins/todo-comments',
 
   require 'kickstart/plugins/treesitter',
+
+  require 'kickstart/plugins/miniai',
 
   require 'kickstart/plugins/harpoon',
 
@@ -48,6 +61,8 @@ require('lazy').setup({
   require 'kickstart/plugins/git',
 
   require 'kickstart/plugins/lualine',
+
+  require 'kickstart/plugins/images',
 
   require 'kickstart.plugins.indent_line',
   require 'kickstart.plugins.autopairs',

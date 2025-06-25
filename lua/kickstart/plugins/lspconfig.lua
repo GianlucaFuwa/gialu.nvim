@@ -128,22 +128,62 @@ return {
         return capabilities
       end
 
-      local REVISE_LANGUAGESERVER = false
+      local REVISE_LANGUAGESERVER = true
       require'lspconfig'.julials.setup({
-        on_new_config = function(new_config, _)
-          local julia = vim.fn.expand("~/.julia/environments/nvim-lspconfig/bin/julia")
-          if REVISE_LANGUAGESERVER then
-          elseif require'lspconfig'.util.path.is_file(julia) then
-            new_config.cmd[1] = julia
-          end
-        end,
-        root_dir = function(fname)
-          local util = require'lspconfig.util'
-          return util.root_pattern 'Project.toml'(fname) or util.find_git_ancestor(fname) or
-            util.path.dirname(fname)
-        end,
-        capabilities = create_capabilities(),
+        on_new_config = function(new_config,new_root_dir)
+          server_path = "/home/gialu/.julia/packages/LanguageServer/Fwm1f"
+          cmd = {
+            "julia",
+            "--project="..server_path,
+            "--startup-file=no",
+            "--history-file=no",
+            "-e", [[
+              using Pkg
+              Pkg.instantiate()
+              using LanguageServer
+            depot_path = get(ENV, "JULIA_DEPOT_PATH", "")
+            project_path = let
+              dirname(something(
+                ## 1. Finds an explicitly set project (JULIA_PROJECT)
+                Base.load_path_expand((
+                  p = get(ENV, "JULIA_PROJECT", nothing);
+                    p === nothing ? nothing : isempty(p) ? nothing : p
+                  )),
+                    ## 2. Look for a Project.toml file in the current working directory,
+                    ##    or parent directories, with $HOME as an upper boundary
+                    Base.current_project(),
+                    ## 3. First entry in the load path
+                    get(Base.load_path(), 1, nothing),
+                    ## 4. Fallback to default global environment,
+                    ##    this is more or less unreachable
+                  Base.load_path_expand("@v#.#"),
+                ))
+              end
+                  @info "Running language server" VERSION pwd() project_path depot_path
+                  server = LanguageServer.LanguageServerInstance(stdin, stdout, project_path, depot_path)
+            server.runlinter = true
+              run(server)
+            ]]
+          };
+          new_config.cmd = cmd
+        end
       })
+
+      -- require'lspconfig'.julials.setup({
+      --   on_new_config = function(new_config, _)
+      --     local julia = vim.fn.expand("~/.julia/environments/nvim-lspconfig/bin/julia")
+      --     if REVISE_LANGUAGESERVER then
+      --     elseif require'lspconfig'.util.path.is_file(julia) then
+      --       new_config.cmd[1] = julia
+      --     end
+      --   end,
+      --   root_dir = function(fname)
+      --     local util = require'lspconfig.util'
+      --     return util.root_pattern 'Project.toml'(fname) or util.find_git_ancestor(fname) or
+      --       util.path.dirname(fname)
+      --   end,
+      --   capabilities = create_capabilities(),
+      -- })
 
       require'lspconfig'.ols.setup({
         capabilities = create_capabilities(),

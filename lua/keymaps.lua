@@ -1,21 +1,41 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
-vim.keymap.set('n', '<leader>pv', vim.cmd.Explore)
+vim.keymap.set("n", "<leader>pv", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+-- vim.keymap.set('n', '<leader>pv', vim.cmd.Explore)
 vim.keymap.set('n', '<Esc><Esc>', ':FloatermToggle<enter>')
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>:FloatermToggle<enter>')
-vim.keymap.set('n', '<leader>nt', ':FloatermNew --position=bottomright<enter>')
+vim.keymap.set('n', '<leader>nt', ':FloatermNew --height=0.4 --wintype=normal --position=bottom<enter>')
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
-vim.keymap.set('n', '<leader>nj', ':FloatermNew --position=bottomright --name=julia <enter>julia -t auto --project --startup-file=yes<enter>')
-vim.keymap.set(
-  'n',
-  '<leader>nr',
-  '<C-W>s<bar><C-W>j<bar>:terminal<enter>ijulia -t auto --project --startup-file=yes<enter>using REPLVim; @async REPLVim.serve()<enter>'
-)
+vim.keymap.set('n', '<leader>nj', ':FloatermNew --height=0.4 --wintype=normal --position=bottom --name=julia <enter>julia -t auto --project --startup-file=yes<enter>')
+vim.keymap.set('n', '<leader>kj', [[:FloatermKill julia]])
+
+vim.keymap.set('n', '<s-cr>', [[:NeigeEvalExpr<CR>]], { noremap = true})
+vim.keymap.set('v', '<s-cr>', [[:<C-U>NeigeEvalVisual<CR>]], { noremap = true})
+vim.keymap.set('n', '<leader>nr', [[:NeigeStart<CR>]])
+vim.keymap.set('n', '<leader>kr', [[:FloatermKill julia-repl]])
+-- vim.keymap.set('n', '<leader>ns', function()
+--   require("neige").start({ split = function()
+--     vim.cmd(":FloatermNew --height=0.4 --wintype=split --position=bottom --name=julia-repl")
+--   end,
+--   })
+-- end, { desc = 'Start Neige REPL with custom split' })
+vim.keymap.set('n', '<leader>nc', [[:NeigeClearText<CR>]])
+-- vim.keymap.set(
+--   'n',
+--   '<leader>nr',
+--   ':FloatermNew --height=0.4 --wintype=split --position=bottom --name=julia <enter>julia -t auto --project --startup-file=yes<enter> using REPLSmuggler; smuggle()<enter>'
+-- )
+-- vim.keymap.set(
+--   'n',
+--   '<leader>nr',
+--   ':FloatermNew --height=0.4 --wintype=split --position=bottom --name=julia <enter>julia -t auto --project --startup-file=yes<enter> using REPLSmuggler; smuggle()<enter>'
+-- )
+-- vim.keymap.set('x', '<leader>cv', ":SmuggleVisual<enter>")
 vim.keymap.set('n', '<leader>s', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
 vim.keymap.set('n', '<leader>ee', 'ggVG:JuliaREPLSendRegion<cr>')
 --- command to go to directory "C:\Users\AppData\Local\nvim" in explorer
-vim.keymap.set('n', '<leader>cc', ':e /home/gialuf/.config/nvim<enter>')
+vim.keymap.set('n', '<leader>cc', ':e /home/gialu/.config/nvim<enter>')
 -- avoid ctrl+alt'ing
 vim.keymap.set('i', 'äh', '{')
 vim.keymap.set('i', 'äl', '}')
@@ -27,6 +47,12 @@ vim.keymap.set('t', 'äl', '}')
 vim.keymap.set('t', 'öh', '[')
 vim.keymap.set('t', 'öl', ']')
 vim.keymap.set('t', 'öö', '\\')
+vim.keymap.set('t', '<C-w>j', '<C-\\><C-n><C-w>j')
+vim.keymap.set('t', '<C-w>k', '<C-\\><C-n><C-w>k')
+vim.keymap.set('t', '<C-w>h', '<C-\\><C-n><C-w>h')
+vim.keymap.set('t', '<C-w>l', '<C-\\><C-n><C-w>l')
+vim.keymap.set('n', '<CR>', 'm`o<Esc>``')
+-- TODO: ctrl-w movement form terminal 
 
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
